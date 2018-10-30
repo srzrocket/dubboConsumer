@@ -1,0 +1,38 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://souche.oss-cn-hangzhou.aliyuncs.com/files/dubbo/dubbo.xsd ">
+	<dubbo:application name="dubboConsumer" />
+	<context:component-scan base-package="com.dubbo.consumer.*" />
+	<!--dubbo服务暴露为http服务-->
+    <bean class="com.dubbo.consumer.http.HttpProviderConf">
+        <property name="usePackage">
+            <list>
+            	   <!--需要暴露服务的接口包名，可多个-->
+                <value>com.dubbo.consumer.http</value>
+                <value>com.dubbo.consumer.service.impl.MsgProcessChain</value>
+            </list>
+        </property>
+    </bean>
+	<!--扫描dubbo注解服务声明 -->
+<!-- 	<dubbo:annotation package="com.dubbo.*" /> -->
+	
+	<dubbo:registry address="zookeeper://localhost:2181?bwencrytype=xx"/>
+    <!-- 用dubbo协议在20881端口服务 -->
+    <dubbo:protocol name="dubbo" port="20880" />
+     <!--使用 dubbo 协议调用定义好的 api.PermissionService 接口-->
+    <dubbo:reference id="testService" interface="dubbo.face.dubboFaceOne.TestService" check="false"/>
+    
+<!--     <dubbo:consumer  timeout="600000" check="false"  default="true"/> -->
+    <bean init-method="contextInitialized" 
+		class="com.dubbo.consumer.service.impl.InitGatewayApi" />
+</beans>

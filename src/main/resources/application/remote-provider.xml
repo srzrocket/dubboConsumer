@@ -1,0 +1,14 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://souche.oss-cn-hangzhou.aliyuncs.com/files/dubbo/dubbo.xsd">
+
+    <!--使用 dubbo 协议实现定义好的 api.PermissionService 接口-->
+<!--     <dubbo:service interface="com.dubbo.consumer.service.ProcessChain" ref="processChain" protocol="dubbo"/> -->
+    
+    <!--具体实现该接口的 bean-->
+<!--     <bean id="processChain" class="com.dubbo.consumer.service.impl.MsgProcessChain"/> -->
+</beans>
